@@ -550,6 +550,62 @@ voice-ai-device/
 | {亲属电话} | EmergencyContact.phone | 紧急联络人电话 |
 | {用户触发词描述} | main.py TRIGGER_WORD_MAP | 触发词映射 |
 
+### 8.4 EmergencyContact模型
+
+```python
+class EmergencyContact(BaseModel):
+    name: str           # 紧急联络人姓名
+    relation: str       # 关系（配偶/儿子/女儿等）
+    phone: str          # 电话
+    wechat: str         # 微信
+    is_primary: bool    # 优先联络人（互斥，只能一人）
+```
+
+**互斥逻辑**：
+- 勾选某联络人为优先后，其他联络人的 `is_primary` 自动设为 False
+- 联系亲属时默认使用优先联络人
+
+### 8.5 事件历史多级展开实现
+
+使用 Tkinter Treeview 组件实现按时间范围展开/折叠：
+
+| 时间范围 | 显示方式 |
+|---------|---------|
+| 今天 | 默认展开（▼） |
+| 昨天 | 默认折叠（▶） |
+| 更早 | 按月分组，逐月展开 |
+
+不同事件类型颜色区分：
+- 🚨 跌倒检测 → 粉红色
+- 🆘 紧急呼救 → 红色
+- 💊 用药提醒 → 绿色
+- 其他 → 白色
+
+### 8.6 联络方式选择
+
+PRD 5.3.3「联系亲属」按钮弹出选择对话框：
+- 微信电话（优先）
+- 普通电话
+
+用户选择后通过 `/sos` endpoint 的 `call_type` 参数传递，系统按 `preferred_wechat_call` 配置执行。
+
+### 8.7 用药提醒TTS消息格式
+
+PRD 7.2：TTS语音播报「王大爷您好，您该吃降压药了。」
+
+实现使用用户名个性化：
+```
+{f"{user_name}您好，您该吃{medicine}了"}
+```
+无用户名时默认「大爷」。
+
+### 8.8 语音唤醒模块
+
+`voice_wakeup.py` 实现 PRD 3.2：
+- 后台线程持续监听（sox rec → Whisper base 模型）
+- 检测 AI 名字连续说两遍（如"小管家小管家"）
+- 触发 `_wake_callback`，AI回复"我在"
+
 ---
 
 ## 九、验收标准
