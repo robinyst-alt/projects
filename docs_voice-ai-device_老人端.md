@@ -498,24 +498,25 @@ TTS语音播报："王大爷您好，您该吃降压药了。"
 ```
 voice-ai-device/
 ├── app/
-│   ├── main.py              # FastAPI后端
+│   ├── main.py              # FastAPI后端（AI简报构建、触发词映射）
 │   ├── ollama_client.py     # LLM客户端
 │   ├── stt.py               # Whisper STT
 │   ├── tts.py               # espeak TTS
 │   ├── pose_monitor.py      # 姿态监测 + 轨迹记录
 │   ├── fall_detection.py     # 跌倒检测
-│   ├── fall_escalation.py    # 跌倒关怀流程
+│   ├── fall_escalation.py    # 跌倒关怀流程（3次×20秒，无响应拨打120）
 │   ├── medication_reminder.py # 用药提醒
 │   ├── care_reminder.py      # 主动关怀
-│   ├── notification.py       # Webhook通知
-│   ├── event_log.py         # 事件日志
-│   ├── user_profile.py       # 用户资料
+│   ├── notification.py       # Webhook通知（亲属端）
+│   ├── event_log.py         # 事件日志（多级展开）
+│   ├── user_profile.py       # 用户资料（含紧急联络人关系字段）
 │   ├── ai_name.py           # AI称呼
+│   ├── config_store.py       # 配置存储
 │   ├── video_capture.py      # 摄像头捕获
 │   ├── voice_wakeup.py       # 语音唤醒检测
 │   ├── ui/
-│   │   └── tkinter_app.py    # Tkinter UI
-│   └── models.py             # 数据模型
+│   │   └── tkinter_app.py    # Tkinter UI（无文字输入框）
+│   └── models.py             # 数据模型（EmergencyContact含relation字段）
 ├── requirements.txt
 └── run.py
 ```
@@ -531,6 +532,23 @@ voice-ai-device/
 | MediaPipe | 最新 | 姿态检测 |
 | FastAPI | 最新 | Web框架 |
 | APScheduler | 最新 | 定时任务 |
+| httpx | 最新 | HTTP客户端 |
+| pydantic | 最新 | 数据模型 |
+
+### 8.3 关键实现说明
+
+**AI简报参数来源**（对应5.1全局参数说明）：
+
+| 参数 | 数据来源 | 说明 |
+|------|---------|------|
+| {地址} | user_profile.address | 老人住址 |
+| {姓名} | user_profile.name | 老人姓名 |
+| {年龄} | user_profile.age | 老人年龄 |
+| {病史} | user_profile.medical_history | 老人病史 |
+| {关系} | EmergencyContact.relation | 亲属关系 |
+| {亲属姓名} | EmergencyContact.name | 紧急联络人姓名 |
+| {亲属电话} | EmergencyContact.phone | 紧急联络人电话 |
+| {用户触发词描述} | main.py TRIGGER_WORD_MAP | 触发词映射 |
 
 ---
 
