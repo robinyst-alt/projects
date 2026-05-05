@@ -1,7 +1,7 @@
 # 养老AI助手 - 老人端技术PRD
 
-> 版本：v1.0
-> 整理时间：2026-04-25
+> 版本：v1.6
+> 整理时间：2026-05-05
 > 状态：功能完成，待测试验证
 
 ---
@@ -80,3 +80,4 @@
 | v1.2 | 2026-05-03 | 更新技术栈：Porcupine→openwakeword, Cobra VAD→Silero VAD, whisper.cpp→Whisper, Piper TTS→edge-tts, Qwen3-4B→gemma4:e4b |
 | v1.3 | 2026-05-03 | 更新技术栈：Whisper→faster-whisper, edge-tts→Piper TTS+espeak, gemma4:e4b→Qwen3-4B+llama.cpp（离线轻量化方案） |
 | v1.5 | 2026-05-05 | TTS更新：移除espeak fallback，音色改为zh_CN-huayan-medium |
+| v1.6 | 2026-05-05 | 语音交互重构：VAD模式改为1，双触发逻辑修复，唤醒与对话模式互斥，STT升级至base模型，添加繁简转换 |
