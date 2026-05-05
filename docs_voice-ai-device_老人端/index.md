@@ -55,7 +55,7 @@
 | 语音活动检测 | Silero VAD | 【03-语音交互-4.1】 |
 | 语音识别(STT) | faster-whisper (whisper.cpp) | 【03-语音交互-4.1】 |
 | 大语言模型(LLM) | Qwen3-4B + llama.cpp | 【03-语音交互-4.1】 |
-| 语音合成(TTS) | Piper TTS + espeak | 【03-语音交互-4.1】 |
+| 语音合成(TTS) | Piper TTS (zh_CN-huayan-medium) | 【03-语音交互-4.1】 |
 | 姿态检测 | MediaPipe Pose | 【04-感知与检测-5.1】 |
 | 跌倒检测 | 角度/高度分析 | 【04-感知与检测-5.2】 |
 | 普通电话拨打 | 蓝牙连接老人手机 | 【04-感知与检测-6.4/6.5】 |
@@ -79,4 +79,4 @@
 | v1.1 | 2026-05-02 | 拆分文档，规范化管理 |
 | v1.2 | 2026-05-03 | 更新技术栈：Porcupine→openwakeword, Cobra VAD→Silero VAD, whisper.cpp→Whisper, Piper TTS→edge-tts, Qwen3-4B→gemma4:e4b |
 | v1.3 | 2026-05-03 | 更新技术栈：Whisper→faster-whisper, edge-tts→Piper TTS+espeak, gemma4:e4b→Qwen3-4B+llama.cpp（离线轻量化方案） |
-| v1.4 | 2026-05-05 | 对话模式超时从30秒改为10秒，更新唤醒检测流程（WebRTC VAD双触发+冷却）和对话模式说明（Silero VAD） |
+| v1.5 | 2026-05-05 | TTS更新：移除espeak fallback，音色改为zh_CN-huayan-medium |
