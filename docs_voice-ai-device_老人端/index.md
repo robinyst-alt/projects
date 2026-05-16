@@ -1,8 +1,8 @@
 # 养老AI助手 - 老人端技术PRD
 
-> 版本：v1.6
-> 整理时间：2026-05-05
-> 状态：功能完成，待测试验证
+> 版本：v1.7
+> 整理时间：2026-05-16
+> 状态：功能完成，CNN唤醒模型已集成
 
 ---
 
@@ -81,3 +81,4 @@
 | v1.3 | 2026-05-03 | 更新技术栈：Whisper→faster-whisper, edge-tts→Piper TTS+espeak, gemma4:e4b→Qwen3-4B+llama.cpp（离线轻量化方案） |
 | v1.5 | 2026-05-05 | TTS更新：移除espeak fallback，音色改为zh_CN-huayan-medium |
 | v1.6 | 2026-05-05 | 语音交互重构：VAD模式改为1，双触发逻辑修复，唤醒与对话模式互斥，STT升级至base模型，添加繁简转换 |
+| v1.7 | 2026-05-16 | CNN唤醒模型集成：自定义CNN分类器替代openwakeword，mel频谱特征，PyTorch训练，用户声音样本训练 |
